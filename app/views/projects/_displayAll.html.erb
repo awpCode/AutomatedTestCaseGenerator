@@ -1,0 +1,20 @@
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Name</th>
+      <th scope="col">TestCase-Count</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @projects.each do |project| %>
+    <tr>
+    <td><%= project.id %></td>
+    <td><%= project.name %></td>
+    <td><%= project.testcaseCount %></td>
+    <td><%= link_to 'Show',project_path(project),:class => "badge badge-dark" %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

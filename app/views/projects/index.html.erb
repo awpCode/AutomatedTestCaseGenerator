@@ -1,3 +1,4 @@
-<h1>this is the root projects page</h1>
-<%= link_to 'New Project',new_project_path %>
-<%= link_to 'Sign out',destroy_user_session_path, method: :delete %>
+<h2>Your Projects</h2>
+<%= render 'displayAll' %>
+<br />
+<%= link_to 'New Project',new_project_path,:class => "btn btn-primary" %>
