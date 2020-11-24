@@ -1,5 +1,5 @@
 <table class="table text-center">
-  <thead class="thead-dark">
+  <thead class="thead-light">
     <tr>
       <th scope="col">Id</th>
       <th scope="col">Name</th>
@@ -13,7 +13,9 @@
     <td><%= project.id %></td>
     <td><%= project.name %></td>
     <td><%= project.testcaseCount %></td>
-    <td><%= link_to 'Show',project_path(project),:class => "badge badge-dark" %></td>
+    <td><%= link_to 'Show',project_path(project),:class => "badge badge-dark" %>&nbsp;
+        <%= link_to 'Edit',edit_project_path(project),:class => "badge badge-dark" %>&nbsp;
+        <%= link_to 'Delete',project_path(project),:class => "badge badge-dark" ,method: :delete %></td>
     </tr>
   <% end %>
   </tbody>

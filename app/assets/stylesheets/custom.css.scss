@@ -1,45 +1,78 @@
 @import "semantic-ui";
 @import 'bootstrap/dist/css/bootstrap';
-
 .navbar {
-background-color: black !important;
+    background-color: black !important;
 }
+
 .nav-link {
-  color: white !important;
+    color: white !important;
 }
+
 #logo {
-  float: left;
-  font-size: 1.7em;
-  color: #fff;
-  text-transform: uppercase;
-  letter-spacing: -1px;
-  font-weight: bold;
+    float: left;
+    font-size: 1.7em;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    font-weight: bold;
 }
+
+
 /*flash*/
+
 .alert-error {
     background-color: #f2dede;
     border-color: #eed3d7;
     color: #b94a48;
     text-align: left;
- }
+}
 
 .alert-alert {
     background-color: #f2dede;
     border-color: #eed3d7;
     color: #b94a48;
     text-align: left;
- }
+}
 
 .alert-success {
     background-color: #dff0d8;
     border-color: #d6e9c6;
     color: #468847;
     text-align: left;
- }
+}
 
 .alert-notice {
     background-color: #dff0d8;
     border-color: #d6e9c6;
     color: #468847;
     text-align: left;
- }
+}
+
+#logo {
+    float: left;
+    font-size: 1.7em;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    font-weight: bold;
+}
+
+#home-container {
+    margin-top: 25px;
+}
+
+
+/* Sticky Footer Classes */
+
+html,
+body {
+    height: 100%;
+}
+
+#page-content {
+    flex: 1 0 auto;
+}
+
+#sticky-footer {
+    flex-shrink: none;
+}
