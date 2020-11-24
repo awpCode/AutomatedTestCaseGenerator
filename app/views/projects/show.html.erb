@@ -1,4 +1,4 @@
-<h2 class="text-center mt-4"><%= @project.name %></h2>
+<!--<h2 class="text-center mt-4"><%= @project.name %></h2>
 <div class="container">
     <div class="row justify-content-md-center">
       <div class="col-8 mt-4">
@@ -18,3 +18,22 @@
       </div>
     </div>
 </div>
+-->
+<h2 class="text-center mt-4"><%= @project.name %></h2>
+<h2 class="text-center mt-4">Number of testcases: <%= @project.testcaseCount %></h2>
+<table class="table text-center">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Download Link</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @project.testcases.each do |test| %>
+    <tr>
+    <td><%= test.id %></td>
+    <td><%= link_to "Download", download_product_path(test), :class => "btn btn-dark" %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

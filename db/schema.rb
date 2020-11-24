@@ -10,23 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_13_121409) do
+ActiveRecord::Schema.define(version: 2020_11_24_142655) do
 
   create_table "projects", force: :cascade do |t|
     t.string "name"
     t.integer "testcaseCount"
     t.integer "user_id"
-    t.text "script"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "testcases", force: :cascade do |t|
     t.integer "project_id"
-    t.text "input"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "testcaseName"
+    t.string "testfile_file_name"
+    t.string "testfile_content_type"
+    t.integer "testfile_file_size"
+    t.datetime "testfile_updated_at"
   end
 
   create_table "users", force: :cascade do |t|
