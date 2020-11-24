@@ -11,19 +11,10 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
     @project.user = current_user
-    @project.testcaseCount = 2
-
-    fileobject = File.new("sample1.txt", "w+");
-    a = 1..100
-    b = a.to_a.join(' ')
-    fileobject.syswrite(b);
-    @test = Testcase.new(testfile: fileobject)
-    @project.testcases << @test
+    @project.testcaseCount = 1
 
     fileobject = File.new("sample2.txt","w+");
-    a = 100..200
-    b = a.to_a.join(' ')
-    fileobject.syswrite(b);
+    fileobject.syswrite(generate_integer_1d_array(20,1,10));
     @test = Testcase.new(testfile: fileobject)
     @project.testcases << @test
 

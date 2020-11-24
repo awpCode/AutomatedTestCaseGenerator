@@ -11,4 +11,12 @@ class ApplicationController < ActionController::Base
 
                devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:name, :email, :password, :current_password)}
           end
+
+  def generate_integer_1d_array(n,l,r)
+     a = n.to_s + " "
+     for i in 1..n do
+          a += rand(l..r).to_s + " "
+     end
+     a
+  end
 end
