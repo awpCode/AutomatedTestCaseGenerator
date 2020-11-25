@@ -31,6 +31,7 @@ gem 'devise-bootstrap-views', '~> 1.0'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'hirb'
 gem "paperclip", "~> 6.0.0"
+gem 'rubyzip'
 group :development, :test do
   gem 'sqlite3', '~> 1.4'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

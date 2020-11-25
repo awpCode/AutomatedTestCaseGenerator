@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   root 'projects#index'
   resources :projects
   get 'download_product', to: 'testcases#download'
+  post '/download-attachments', to: "projects#process_and_create_zip_file", as: 'download_documents'
 end

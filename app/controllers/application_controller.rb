@@ -17,6 +17,6 @@ class ApplicationController < ActionController::Base
      for i in 1..n do
           a += rand(l..r).to_s + " "
      end
-     a
+     return a
   end
 end
