@@ -13,12 +13,12 @@ class ProjectsController < ApplicationController
     @project = Project.new(project_params)
     @project.user = current_user
 
-    fileobject = File.new("in1.txt","w+");
+  #  fileobject = File.new("in1.txt","w+");
     #fileobject.syswrite(generate_integer_1d_array(20,1,10));
 
-    fileobject.syswrite("aa");
-    @test = Testcase.new(testfile: fileobject)
-    @project.testcases << @test
+   # fileobject.syswrite("aa");
+   # @test = Testcase.new(testfile: fileobject)
+   # @project.testcases << @test
 
     fileobject = File.new("in2.txt","w+");
     fileobject.syswrite(generate_integer_1d_array(100,1,4));
@@ -70,6 +70,11 @@ class ProjectsController < ApplicationController
       @project.testcases.each do |p|
         zos.put_next_entry p.testfile_file_name
         zos.print(Paperclip.io_adapters.for(p.testfile).read)
+
+
+        zos.put_next_entry p.output_file_name
+        zos.print(Paperclip.io_adapters.for(p.output).read)
+
       end
     end
     compressed_filestream.rewind
@@ -106,10 +111,13 @@ class ProjectsController < ApplicationController
     end
     render 'show'
   end
+    def add_code
+      @project = Project.find(params[:format].to_i)
+    end
 
 
   private
   def project_params
-    params.require(:project).permit(:name, :code, :testcaseCount)
+    params.require(:project).permit(:name, :testcaseCount, :code)
   end
 end

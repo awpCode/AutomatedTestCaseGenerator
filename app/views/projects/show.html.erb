@@ -24,7 +24,7 @@
 </table>
 <%= link_to 'Download All', download_documents_path(@project), method: :post, :class => "btn btn-dark text-center" %>
 &nbsp;
-<% if !@project.testcases.first.output.exists? %>
-  <%= link_to 'Generate Outputs', generate_output_path(@project), method: :post, :class => "btn btn-dark text-center" %>
-<% end %>
+<%= link_to @project.code.blank? ? 'Add Code' : 'Edit Code', add_code_path(@project), :class => "btn btn-dark text-center" %>
+&nbsp;
+  <%= link_to @project.testcases.first.output.exists? ? 'Generate Outputs Again' : 'Generate Outputs', generate_output_path(@project), method: :post, :class => "btn btn-dark text-center" %>
 </div>
