@@ -114,10 +114,13 @@ class ProjectsController < ApplicationController
     def add_code
       @project = Project.find(params[:format].to_i)
     end
+    def online_ide
 
+    end
 
   private
   def project_params
     params.require(:project).permit(:name, :testcaseCount, :code)
   end
+
 end

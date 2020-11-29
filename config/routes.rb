@@ -8,4 +8,5 @@ Rails.application.routes.draw do
   post '/download-attachments', to: "projects#process_and_create_zip_file", as: 'download_documents'
   post 'generate_output', to: 'projects#generate_output'
   get 'add_code', to: 'projects#add_code'
+  get 'online_ide', to: 'projects#online_ide'
 end
