@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_24_142655) do
+ActiveRecord::Schema.define(version: 2020_11_25_202006) do
 
   create_table "projects", force: :cascade do |t|
     t.string "name"
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 2020_11_24_142655) do
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.text "code", limit: 700000
   end
 
   create_table "testcases", force: :cascade do |t|
@@ -28,6 +29,10 @@ ActiveRecord::Schema.define(version: 2020_11_24_142655) do
     t.string "testfile_content_type"
     t.integer "testfile_file_size"
     t.datetime "testfile_updated_at"
+    t.string "output_file_name"
+    t.string "output_content_type"
+    t.integer "output_file_size"
+    t.datetime "output_updated_at"
   end
 
   create_table "users", force: :cascade do |t|
