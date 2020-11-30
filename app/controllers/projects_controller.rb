@@ -50,7 +50,7 @@ class ProjectsController < ApplicationController
     #generate testcases again
     @project = Project.find(params[:id])
     if @project.update(project_params)
-      flash[:notice] = "Article was updated successfully"
+      flash[:notice] = "Project was updated successfully"
       redirect_to project_path(@project)
     else
      render 'edit'
@@ -84,31 +84,35 @@ class ProjectsController < ApplicationController
 
   def generate_output
     @project = Project.find(params[:format].to_i)
-    url = URI("https://api.jdoodle.com/v1/execute")
-    http = Net::HTTP.new(url.host, url.port)
-    http.use_ssl = true
-    request = Net::HTTP::Post.new(url.path)
-    request["Content-Type"] = 'application/json'
-    @project.testcases.each do |testcase|
-      #input = testcase.testfile.copy_to_local_file.read.to_s
-      input = Paperclip.io_adapters.for(testcase.testfile).read
-      input = input.to_s
-      request.body = {
-          "script" => @project.code,
-          "language" => "cpp14",
-          "versionIndex" => "3",
-          "clientId" => "b4a3fb2dd2327ec7e9189ac3a0fc8c38",
-          "clientSecret" => "f295f87cb2647b7a77ada106ff601a80b1b732aec52c34df2b79202ac55671f0",
-          "stdin" => input}.to_json
-          response = http.request(request)
-          obj = JSON.parse(response.read_body)
-          output = obj["output"].to_s
-          output = " " + output
-          fileobject = File.new("out1_#{rand(1..6000).to_s}.txt","w+");
-          fileobject.syswrite(output);
-          testcase.output = fileobject
-          testcase.save
-    end
+    if @project.code.blank?
+      flash[:error] = "Add code to your project first"
+    else
+        url = URI("https://api.jdoodle.com/v1/execute")
+        http = Net::HTTP.new(url.host, url.port)
+        http.use_ssl = true
+        request = Net::HTTP::Post.new(url.path)
+        request["Content-Type"] = 'application/json'
+        @project.testcases.each do |testcase|
+          #input = testcase.testfile.copy_to_local_file.read.to_s
+          input = Paperclip.io_adapters.for(testcase.testfile).read
+          input = input.to_s
+          request.body = {
+              "script" => @project.code,
+              "language" => "cpp14",
+              "versionIndex" => "3",
+              "clientId" => "b4a3fb2dd2327ec7e9189ac3a0fc8c38",
+              "clientSecret" => "f295f87cb2647b7a77ada106ff601a80b1b732aec52c34df2b79202ac55671f0",
+              "stdin" => input}.to_json
+              response = http.request(request)
+              obj = JSON.parse(response.read_body)
+              output = obj["output"].to_s
+              output = " " + output
+              fileobject = File.new("out1_#{rand(1..6000).to_s}.txt","w+");
+              fileobject.syswrite(output);
+              testcase.output = fileobject
+              testcase.save
+        end
+     end
     render 'show'
   end
     def add_code

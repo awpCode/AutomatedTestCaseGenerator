@@ -109,4 +109,13 @@ Rails.application.configure do
   # config.active_record.database_selector = { delay: 2.seconds }
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
+  config.paperclip_defaults = {
+    storage: :s3,
+    s3_credentials: {
+      bucket: ENV.fetch('major-rails'),
+      access_key_id: ENV.fetch('AKIAICZLCS5LYRU24YOQ'),
+      secret_access_key: ENV.fetch('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'),
+      s3_region: ENV.fetch('https://sts.ap-south-1.amazonaws.com'),
+    }
+  }
 end
