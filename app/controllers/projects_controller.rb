@@ -20,7 +20,7 @@ class ProjectsController < ApplicationController
         fileobject = File.new(inputFileName,"w+");
 
 
-        fileobject.syswrite(generate_integer_1d_array(10,1,100));
+        fileobject.syswrite(generate_integer_1d_array(10,1,10));
 
 
         @test = Testcase.new(testfile: fileobject)
