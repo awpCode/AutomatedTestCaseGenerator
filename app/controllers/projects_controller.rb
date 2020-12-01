@@ -13,27 +13,21 @@ class ProjectsController < ApplicationController
     @project = Project.new(project_params)
     @project.user = current_user
 
-  #  fileobject = File.new("in1.txt","w+");
-    #fileobject.syswrite(generate_integer_1d_array(20,1,10));
 
-   # fileobject.syswrite("aa");
-   # @test = Testcase.new(testfile: fileobject)
-   # @project.testcases << @test
+    #Creating testcases
+    for i in 1..@project.testcaseCount
+        inputFileName = "in" + i.to_s + ".txt"
+        fileobject = File.new(inputFileName,"w+");
 
-    fileobject = File.new("in2.txt","w+");
-    fileobject.syswrite(generate_integer_1d_array(100,1,4));
-    @test = Testcase.new(testfile: fileobject)
-    @project.testcases << @test
 
-    fileobject = File.new("in3.txt","w+");
-    fileobject.syswrite(generate_integer_1d_array(100,11,14));
-    @test = Testcase.new(testfile: fileobject)
-    @project.testcases << @test
+        fileobject.syswrite(generate_integer_1d_array(10,1,100));
 
-    fileobject = File.new("in4.txt","w+");
-    fileobject.syswrite(generate_integer_1d_array(200,100,400));
-    @test = Testcase.new(testfile: fileobject)
-    @project.testcases << @test
+
+        @test = Testcase.new(testfile: fileobject)
+        @project.testcases << @test
+    end
+
+
     if @project.save
       flash[:notice] = "Project was created successfully."
       redirect_to project_path(@project)
@@ -92,7 +86,7 @@ class ProjectsController < ApplicationController
         http.use_ssl = true
         request = Net::HTTP::Post.new(url.path)
         request["Content-Type"] = 'application/json'
-        @project.testcases.each do |testcase|
+        @project.testcases.each_with_index do |testcase, index|
           #input = testcase.testfile.copy_to_local_file.read.to_s
           input = Paperclip.io_adapters.for(testcase.testfile).read
           input = input.to_s
@@ -107,7 +101,8 @@ class ProjectsController < ApplicationController
               obj = JSON.parse(response.read_body)
               output = obj["output"].to_s
               output = " " + output
-              fileobject = File.new("out1_#{rand(1..6000).to_s}.txt","w+");
+              outputFileName = "out" + (index+1).to_s  + ".txt"
+              fileobject = File.new(outputFileName,"w+");
               fileobject.syswrite(output);
               testcase.output = fileobject
               testcase.save
