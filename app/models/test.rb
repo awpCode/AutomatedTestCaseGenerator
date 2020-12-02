@@ -57,4 +57,4 @@ end
 class Test < ApplicationRecord
     belongs_to :project
     validates_with ModelValidator
-  end
+end
