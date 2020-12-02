@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_25_202006) do
+ActiveRecord::Schema.define(version: 2020_12_02_121710) do
 
   create_table "projects", force: :cascade do |t|
     t.string "name"
@@ -33,6 +33,16 @@ ActiveRecord::Schema.define(version: 2020_11_25_202006) do
     t.string "output_content_type"
     t.integer "output_file_size"
     t.datetime "output_updated_at"
+  end
+
+  create_table "tests", force: :cascade do |t|
+    t.string "name"
+    t.integer "lowlimit"
+    t.integer "highlimit"
+    t.integer "rowsize"
+    t.integer "colsize"
+    t.integer "flag"
+    t.integer "project_id"
   end
 
   create_table "users", force: :cascade do |t|

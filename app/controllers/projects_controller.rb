@@ -12,17 +12,32 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
     @project.user = current_user
-
-
+    a = @project.tests
     #Creating testcases
+    #int intarray int2darray string stringarray
     for i in 1..@project.testcaseCount
+
         inputFileName = "in" + i.to_s + ".txt"
         fileobject = File.new(inputFileName,"w+");
+        input = ""
+        a.each do |test|
+          if test.name.blank?
+            test.destroy
+            next
+          elsif test.name == "int"
+            input += generate_integer(test.lowlimit, test.highlimit) + " "
+          elsif test.name == "intarray"
+            input += generate_integer_1d_array(test.rowsize,test.lowlimit,test.highlimit)
+          elsif test.name == "int2darray"
+            input += generate_integer_2d_array(test.rowsize,test.colsize,test.lowlimit,test.highlimit)
+          elsif test.name == "string"
+            input += generate_string(test.rowsize,test.rowsize,test.flag) + " "
+          elsif test.name == "stringarray"
+            input += generate_string_array(test.rowsize,test.lowlimit,test.highlimit,test.flag)
+          end
+        end
 
-
-        fileobject.syswrite(generate_integer_1d_array(10,1,10));
-
-
+        fileobject.syswrite(input);
         @test = Testcase.new(testfile: fileobject)
         @project.testcases << @test
     end
@@ -119,7 +134,7 @@ class ProjectsController < ApplicationController
 
   private
   def project_params
-    params.require(:project).permit(:name, :testcaseCount, :code)
+    params.require(:project).permit(:name, :testcaseCount, :code, tests_attributes: [:id ,:name, :lowlimit, :highlimit, :rowsize, :colsize, :flag])
   end
 
 end

@@ -1,2 +1,438 @@
 <h1 class="text-center mt-4">Create a new Project</h1>
-<%= render 'form' %>
+<div class="container">
+
+<div class="row justify-content-center">
+  <div class="col-10">
+    <%= render 'shared/errors',obj: @project %>
+    <%= form_with(model: @project,class: "shadow p-3 mb-5 bg-dark rounded",local: true) do |f| %>
+    <div class="form-group row">
+      <%= f.label :name,class: "col-2 col-form-label text-light" %>
+      <div class="col-10">
+        <%= f.text_field :name,class: "form-control shadow rounded",placeholder: "Name of project" %>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <%= f.label :testcase_Count,class: "col-2 col-form-label text-light" %>
+      <div class="col-10">
+        <%= f.number_field :testcaseCount,class: "form-control shadow rounded",placeholder: "Enter the number of testcases you want" %>
+      </div>
+    </div>
+
+
+    <br>
+    <br>
+    <div class = "form-group h1 text-light text-center">
+        Testcase Description
+    </div>
+    <br><br>
+    <div class = "container">
+    <div class="form-group text-light">
+
+      First Line Of Input:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       <%= f.fields_for :tests, Test.new do |ff| %>
+              <%= ff.radio_button :name, 'int' , id: "int" %>                 Integer &nbsp;
+              <%= ff.radio_button :name, 'intarray', id: "intarray" %>        1D Integer Array &nbsp;
+              <%= ff.radio_button :name, 'int2darray', id: "int2darray" %>    2D Integer Array &nbsp;
+              <%= ff.radio_button :name, 'string', id: "string" %>            String &nbsp;
+              <%= ff.radio_button :name, 'stringarray', id: "stringarray" %>  String Array
+              <br>
+
+          <div id = "rangeinput", class = "d-none">
+                    <%= ff.label :Lower_Limit,class: "col-form-label text-light" %>
+                   <div class="col-5">
+                      <%= ff.number_field :lowlimit,class: "form-control shadow rounded",placeholder: "Enter the lower limit" %>
+                  </div>
+
+                    <%= ff.label :Higher_Limit,class: "col-form-label text-light" %>
+                   <div class="col-5">
+                      <%= ff.number_field :highlimit,class: "form-control shadow rounded",placeholder: "Enter the upper limit" %>
+                  </div>
+
+        </div>
+
+        <div id = "rowsizeinput", class = "d-none">
+                    <%= ff.label :Size_of_Array,class: "col-form-label text-light" %>
+                   <div class="col-5">
+                      <%= ff.number_field :rowsize,class: "form-control shadow rounded",placeholder: "Enter the size" %>
+                  </div>
+
+        </div>
+
+        <div id = "colsizeinput", class = "d-none">
+
+                    <%= ff.label :Number_of_Columns,class: "col-form-label text-light" %>
+                   <div class="col-5">
+                      <%= ff.number_field :colsize,class: "form-control shadow rounded",placeholder: "Enter the number of columns" %>
+                  </div>
+
+        </div>
+
+        <div id = "flaginput", class = "d-none">
+                    <%= ff.label :Flag,class: "col-form-label text-light" %>
+                   <div class="col-5">
+                      <%= ff.number_field :flag,class: "form-control shadow rounded",placeholder: "See documentation" %>
+                  </div>
+
+        </div>
+
+      <% end %>
+    </div>
+
+    <div class="form-group text-light">
+
+      Second Line Of Input:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       <%= f.fields_for :tests, Test.new do |ff| %>
+              <%= ff.radio_button :name, 'int' , id: "int2" %>                 Integer &nbsp;
+              <%= ff.radio_button :name, 'intarray', id: "intarray2" %>        1D Integer Array &nbsp;
+              <%= ff.radio_button :name, 'int2darray', id: "int2darray2" %>    2D Integer Array &nbsp;
+              <%= ff.radio_button :name, 'string', id: "string2" %>            String &nbsp;
+              <%= ff.radio_button :name, 'stringarray', id: "stringarray2" %>  String Array
+              <br>
+
+
+               <div id = "rangeinput2", class = "d-none">
+                    <%= ff.label :Lower_Limit,class: "col-form-label text-light" %>
+                   <div class="col-5">
+                      <%= ff.number_field :lowlimit,class: "form-control shadow rounded",placeholder: "Enter the lower limit" %>
+                  </div>
+
+                    <%= ff.label :Higher_Limit,class: "col-form-label text-light" %>
+                   <div class="col-5">
+                      <%= ff.number_field :highlimit,class: "form-control shadow rounded",placeholder: "Enter the upper limit" %>
+                  </div>
+
+        </div>
+
+        <div id = "rowsizeinput2", class = "d-none">
+                    <%= ff.label :Size_of_Array,class: "col-form-label text-light" %>
+                   <div class="col-5">
+                      <%= ff.number_field :rowsize,class: "form-control shadow rounded",placeholder: "Enter the size" %>
+                  </div>
+
+        </div>
+
+        <div id = "colsizeinput2", class = "d-none">
+
+                    <%= ff.label :Number_of_Columns,class: "col-form-label text-light" %>
+                   <div class="col-5">
+                      <%= ff.number_field :colsize,class: "form-control shadow rounded",placeholder: "Enter the number of columns" %>
+                  </div>
+
+        </div>
+
+        <div id = "flaginput2", class = "d-none">
+                    <%= ff.label :Flag,class: "col-form-label text-light" %>
+                   <div class="col-5">
+                      <%= ff.number_field :flag,class: "form-control shadow rounded",placeholder: "See documentation" %>
+                  </div>
+
+        </div>
+
+      <% end %>
+    </div>
+
+
+    <div class="form-group text-light">
+
+      Third Line Of Input:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       <%= f.fields_for :tests, Test.new do |ff| %>
+              <%= ff.radio_button :name, 'int' , id: "int3" %>                 Integer &nbsp;
+              <%= ff.radio_button :name, 'intarray', id: "intarray3" %>        1D Integer Array &nbsp;
+              <%= ff.radio_button :name, 'int2darray', id: "int2darray3" %>    2D Integer Array &nbsp;
+              <%= ff.radio_button :name, 'string', id: "string3" %>            String &nbsp;
+              <%= ff.radio_button :name, 'stringarray', id: "stringarray3" %>  String Array
+              <br>
+               <div id = "rangeinput3", class = "d-none">
+                    <%= ff.label :Lower_Limit,class: "col-form-label text-light" %>
+                   <div class="col-5">
+                      <%= ff.number_field :lowlimit,class: "form-control shadow rounded",placeholder: "Enter the lower limit" %>
+                  </div>
+
+                    <%= ff.label :Higher_Limit,class: "col-form-label text-light" %>
+                   <div class="col-5">
+                      <%= ff.number_field :highlimit,class: "form-control shadow rounded",placeholder: "Enter the upper limit" %>
+                  </div>
+
+        </div>
+
+        <div id = "rowsizeinput3", class = "d-none">
+                    <%= ff.label :Size_of_Array,class: "col-form-label text-light" %>
+                   <div class="col-5">
+                      <%= ff.number_field :rowsize,class: "form-control shadow rounded",placeholder: "Enter the size" %>
+                  </div>
+
+        </div>
+
+        <div id = "colsizeinput3", class = "d-none">
+
+                    <%= ff.label :Number_of_Columns,class: "col-form-label text-light" %>
+                   <div class="col-5">
+                      <%= ff.number_field :colsize,class: "form-control shadow rounded",placeholder: "Enter the number of columns" %>
+                  </div>
+
+        </div>
+
+        <div id = "flaginput3", class = "d-none">
+                    <%= ff.label :Flag,class: "col-form-label text-light" %>
+                   <div class="col-5">
+                      <%= ff.number_field :flag,class: "form-control shadow rounded",placeholder: "See documentation" %>
+                  </div>
+
+        </div>
+
+      <% end %>
+    </div>
+
+    <div class="form-group text-light">
+    Fourth Line Of Input:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       <%= f.fields_for :tests, Test.new do |ff| %>
+              <%= ff.radio_button :name, 'int' , id: "int4" %>                 Integer &nbsp;
+              <%= ff.radio_button :name, 'intarray', id: "intarray4" %>        1D Integer Array &nbsp;
+              <%= ff.radio_button :name, 'int2darray', id: "int2darray4" %>    2D Integer Array &nbsp;
+              <%= ff.radio_button :name, 'string', id: "string4" %>            String &nbsp;
+              <%= ff.radio_button :name, 'stringarray', id: "stringarray4" %>  String Array
+              <br>
+               <div id = "rangeinput4", class = "d-none">
+                    <%= ff.label :Lower_Limit,class: "col-form-label text-light" %>
+                   <div class="col-5">
+                      <%= ff.number_field :lowlimit,class: "form-control shadow rounded",placeholder: "Enter the lower limit" %>
+                  </div>
+
+                    <%= ff.label :Higher_Limit,class: "col-form-label text-light" %>
+                   <div class="col-5">
+                      <%= ff.number_field :highlimit,class: "form-control shadow rounded",placeholder: "Enter the upper limit" %>
+                  </div>
+
+        </div>
+
+        <div id = "rowsizeinput4", class = "d-none">
+                    <%= ff.label :Size_of_Array,class: "col-form-label text-light" %>
+                   <div class="col-5">
+                      <%= ff.number_field :rowsize,class: "form-control shadow rounded",placeholder: "Enter the size" %>
+                  </div>
+
+        </div>
+
+        <div id = "colsizeinput4", class = "d-none">
+
+                    <%= ff.label :Number_of_Columns,class: "col-form-label text-light" %>
+                   <div class="col-5">
+                      <%= ff.number_field :colsize,class: "form-control shadow rounded",placeholder: "Enter the number of columns" %>
+                  </div>
+
+        </div>
+
+        <div id = "flaginput4", class = "d-none">
+                    <%= ff.label :Flag,class: "col-form-label text-light" %>
+                   <div class="col-5">
+                      <%= ff.number_field :flag,class: "form-control shadow rounded",placeholder: "See documentation" %>
+                  </div>
+
+        </div>
+
+      <% end %>
+    </div>
+
+    <div class="form-group text-light">
+
+      Fifth Line Of Input:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       <%= f.fields_for :tests, Test.new do |ff| %>
+              <%= ff.radio_button :name, 'int' , id: "int5" %>                 Integer &nbsp;
+              <%= ff.radio_button :name, 'intarray', id: "intarray5" %>        1D Integer Array &nbsp;
+              <%= ff.radio_button :name, 'int2darray', id: "int2darray5" %>    2D Integer Array &nbsp;
+              <%= ff.radio_button :name, 'string', id: "string5" %>            String &nbsp;
+              <%= ff.radio_button :name, 'stringarray', id: "stringarray5" %>  String Array
+              <br>
+               <div id = "rangeinput5", class = "d-none">
+                    <%= ff.label :Lower_Limit,class: "col-form-label text-light" %>
+                   <div class="col-5">
+                      <%= ff.number_field :lowlimit,class: "form-control shadow rounded",placeholder: "Enter the lower limit" %>
+                  </div>
+
+                    <%= ff.label :Higher_Limit,class: "col-form-label text-light" %>
+                   <div class="col-5">
+                      <%= ff.number_field :highlimit,class: "form-control shadow rounded",placeholder: "Enter the upper limit" %>
+                  </div>
+
+        </div>
+
+        <div id = "rowsizeinput5", class = "d-none">
+                    <%= ff.label :Size_of_Array,class: "col-form-label text-light" %>
+                   <div class="col-5">
+                      <%= ff.number_field :rowsize,class: "form-control shadow rounded",placeholder: "Enter the size" %>
+                  </div>
+
+        </div>
+
+        <div id = "colsizeinput5", class = "d-none">
+
+                    <%= ff.label :Number_of_Columns,class: "col-form-label text-light" %>
+                   <div class="col-5">
+                      <%= ff.number_field :colsize,class: "form-control shadow rounded",placeholder: "Enter the number of columns" %>
+                  </div>
+
+        </div>
+
+        <div id = "flaginput5", class = "d-none">
+                    <%= ff.label :Flag,class: "col-form-label text-light" %>
+                   <div class="col-5">
+                      <%= ff.number_field :flag,class: "form-control shadow rounded",placeholder: "See documentation" %>
+                  </div>
+
+        </div>
+
+      <% end %>
+    </div>
+    </div>
+    <div class="form-group row justify-content-center">
+      <%= f.submit class: "btn btn-outline-light btn-lg" %>
+    </div>
+  <% end %>
+</div>
+<div class="mb-3">
+  <%= link_to '[Cancel and return to home page ]', projects_path,class: "text-info" %>
+</div>
+</div>
+</div>
+<script>
+  document.getElementById("int").addEventListener("click", handleClick1);
+  document.getElementById("intarray").addEventListener("click", handleClick2);
+  document.getElementById("int2darray").addEventListener("click", handleClick3);
+  document.getElementById("string").addEventListener("click", handleClick4);
+  document.getElementById("stringarray").addEventListener("click", handleClick5);
+
+  document.getElementById("int2").addEventListener("click", handleClick12);
+  document.getElementById("intarray2").addEventListener("click", handleClick22);
+  document.getElementById("int2darray2").addEventListener("click", handleClick32);
+  document.getElementById("string2").addEventListener("click", handleClick42);
+  document.getElementById("stringarray2").addEventListener("click", handleClick52);
+
+  document.getElementById("int3").addEventListener("click", handleClick13);
+  document.getElementById("intarray3").addEventListener("click", handleClick23);
+  document.getElementById("int2darray3").addEventListener("click", handleClick33);
+  document.getElementById("string3").addEventListener("click", handleClick43);
+  document.getElementById("stringarray3").addEventListener("click", handleClick53);
+
+  document.getElementById("int4").addEventListener("click", handleClick14);
+  document.getElementById("intarray4").addEventListener("click", handleClick24);
+  document.getElementById("int2darray4").addEventListener("click", handleClick34);
+  document.getElementById("string4").addEventListener("click", handleClick44);
+  document.getElementById("stringarray4").addEventListener("click", handleClick54);
+
+  document.getElementById("int5").addEventListener("click", handleClick15);
+  document.getElementById("intarray5").addEventListener("click", handleClick25);
+  document.getElementById("int2darray5").addEventListener("click", handleClick35);
+  document.getElementById("string5").addEventListener("click", handleClick45);
+  document.getElementById("stringarray5").addEventListener("click", handleClick55);
+  function handleClick1() {
+        document.getElementById("rangeinput").classList.remove("d-none");
+    }
+    function handleClick2() {
+        document.getElementById("rowsizeinput").classList.remove("d-none");
+        document.getElementById("rangeinput").classList.remove("d-none");
+    }
+    function handleClick3() {
+        document.getElementById("rowsizeinput").classList.remove("d-none");
+        document.getElementById("colsizeinput").classList.remove("d-none");
+        document.getElementById("rangeinput").classList.remove("d-none");
+    }
+    function handleClick4() {
+        document.getElementById("rowsizeinput").classList.remove("d-none");
+        document.getElementById("flaginput").classList.remove("d-none");
+    }
+    function handleClick5() {
+        document.getElementById("rowsizeinput").classList.remove("d-none");
+        document.getElementById("rangeinput").classList.remove("d-none");
+        document.getElementById("flaginput").classList.remove("d-none");
+    }
+
+
+     function handleClick12() {
+        document.getElementById("rangeinput2").classList.remove("d-none");
+    }
+    function handleClick22() {
+        document.getElementById("rowsizeinput2").classList.remove("d-none");
+        document.getElementById("rangeinput2").classList.remove("d-none");
+    }
+    function handleClick32() {
+        document.getElementById("rowsizeinput2").classList.remove("d-none");
+        document.getElementById("colsizeinput2").classList.remove("d-none");
+        document.getElementById("rangeinput2").classList.remove("d-none");
+    }
+    function handleClick42() {
+        document.getElementById("rowsizeinput2").classList.remove("d-none");
+        document.getElementById("flaginput2").classList.remove("d-none");
+    }
+    function handleClick52() {
+        document.getElementById("rowsizeinput2").classList.remove("d-none");
+        document.getElementById("rangeinput2").classList.remove("d-none");
+        document.getElementById("flaginput2").classList.remove("d-none");
+    }
+
+     function handleClick13() {
+        document.getElementById("rangeinput3").classList.remove("d-none");
+    }
+    function handleClick23() {
+        document.getElementById("rowsizeinput3").classList.remove("d-none");
+        document.getElementById("rangeinput3").classList.remove("d-none");
+    }
+    function handleClick33() {
+        document.getElementById("rowsizeinput3").classList.remove("d-none");
+        document.getElementById("colsizeinput3").classList.remove("d-none");
+        document.getElementById("rangeinput3").classList.remove("d-none");
+    }
+    function handleClick43() {
+        document.getElementById("rowsizeinput3").classList.remove("d-none");
+        document.getElementById("flaginput3").classList.remove("d-none");
+    }
+    function handleClick53() {
+        document.getElementById("rowsizeinput3").classList.remove("d-none");
+        document.getElementById("rangeinput3").classList.remove("d-none");
+        document.getElementById("flaginput3").classList.remove("d-none");
+    }
+
+     function handleClick14() {
+        document.getElementById("rangeinput4").classList.remove("d-none");
+    }
+    function handleClick24() {
+        document.getElementById("rowsizeinput4").classList.remove("d-none");
+        document.getElementById("rangeinput4").classList.remove("d-none");
+    }
+    function handleClick34() {
+        document.getElementById("rowsizeinput4").classList.remove("d-none");
+        document.getElementById("colsizeinput4").classList.remove("d-none");
+        document.getElementById("rangeinput4").classList.remove("d-none");
+    }
+    function handleClick44() {
+        document.getElementById("rowsizeinput4").classList.remove("d-none");
+        document.getElementById("flaginput4").classList.remove("d-none");
+    }
+    function handleClick54() {
+        document.getElementById("rowsizeinput4").classList.remove("d-none");
+        document.getElementById("rangeinput4").classList.remove("d-none");
+        document.getElementById("flaginput4").classList.remove("d-none");
+    }
+
+     function handleClick15() {
+        document.getElementById("rangeinput5").classList.remove("d-none");
+    }
+    function handleClick25() {
+        document.getElementById("rowsizeinput5").classList.remove("d-none");
+        document.getElementById("rangeinput5").classList.remove("d-none");
+    }
+    function handleClick35() {
+        document.getElementById("rowsizeinput5").classList.remove("d-none");
+        document.getElementById("colsizeinput5").classList.remove("d-none");
+        document.getElementById("rangeinput5").classList.remove("d-none");
+    }
+    function handleClick45() {
+        document.getElementById("rowsizeinput5").classList.remove("d-none");
+        document.getElementById("flaginput5").classList.remove("d-none");
+    }
+    function handleClick55() {
+        document.getElementById("rowsizeinput5").classList.remove("d-none");
+        document.getElementById("rangeinput5").classList.remove("d-none");
+        document.getElementById("flaginput5").classList.remove("d-none");
+    }
+</script>
