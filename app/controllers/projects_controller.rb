@@ -12,42 +12,64 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
     @project.user = current_user
-    a = @project.tests
-    #Creating testcases
-    #int intarray int2darray string stringarray
-    for i in 1..@project.testcaseCount
-
-        inputFileName = "in" + i.to_s + ".txt"
-        fileobject = File.new(inputFileName,"w+");
-        input = ""
-        a.each do |test|
-          if test.name.blank?
-            test.destroy
-            next
-          elsif test.name == "int"
-            input += generate_integer(test.lowlimit, test.highlimit) + " "
-          elsif test.name == "intarray"
-            input += generate_integer_1d_array(test.rowsize,test.lowlimit,test.highlimit)
-          elsif test.name == "int2darray"
-            input += generate_integer_2d_array(test.rowsize,test.colsize,test.lowlimit,test.highlimit)
-          elsif test.name == "string"
-            input += generate_string(test.rowsize,test.rowsize,test.flag) + " "
-          elsif test.name == "stringarray"
-            input += generate_string_array(test.rowsize,test.lowlimit,test.highlimit,test.flag)
-          end
-        end
-
-        fileobject.syswrite(input);
-        @test = Testcase.new(testfile: fileobject)
-        @project.testcases << @test
-    end
-
-
+    a = @project.tests.destroy_all
     if @project.save
-      flash[:notice] = "Project was created successfully."
-      redirect_to project_path(@project)
+        errors = 0
+        for i in 1..@project.testcaseCount
+
+              inputFileName = "in" + i.to_s + ".txt"
+              fileobject = File.new(inputFileName,"w+");
+              input = ""
+              errors = 0
+            a.each_with_index do |test,index|
+                if test.name.blank?
+                  test.destroy
+                  next
+                end
+                test.project_id = @project.id
+                if !test.valid?
+                  @project.errors[:base] << "In Input Line => " + (index+1).to_s + ": " + "#{test.errors.full_messages.join(". ")}."
+                  errors = 1
+                  break
+                elsif test.name == "int"
+                  input += generate_integer(test.lowlimit, test.highlimit) + " "
+                elsif test.name == "intarray"
+                  input += generate_integer_1d_array(test.rowsize,test.lowlimit,test.highlimit)
+                elsif test.name == "int2darray"
+                  input += generate_integer_2d_array(test.rowsize,test.colsize,test.lowlimit,test.highlimit)
+                elsif test.name == "string"
+                  input += generate_string(test.rowsize,test.rowsize,test.flag) + " "
+                elsif test.name == "stringarray"
+                  input += generate_string_array(test.rowsize,test.lowlimit,test.highlimit,test.flag)
+                end
+                test.save
+                @project.tests << test
+            end
+            if errors == 1
+              break
+            end
+
+            fileobject.syswrite(input);
+            @test = Testcase.new(testfile: fileobject)
+            @project.testcases << @test
+        end
+        if errors == 1 || @project.tests.count == 0
+          #Test.where(project_id: @project.id).destroy_all
+          if @project.tests.count == 0
+                @project.errors[:base] << "Atleast one line of input is necessary"
+          end
+          @project.tests.destroy_all
+          @project.destroy
+          render 'new'
+          return
+        end
+        flash[:notice] = "Project was created successfully."
+        redirect_to project_path(@project)
+        return
     else
+      @project.destroy
       render 'new'
+      return
     end
   end
 

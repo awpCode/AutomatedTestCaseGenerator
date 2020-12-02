@@ -5,7 +5,7 @@
     <tr>
       <th scope="col">Testcase Number:</th>
       <th scope="col">Input Link</th>
-      <% if @project.testcases.first.output.exists? %>
+      <% if  @project.testcases.count>0 && @project.testcases.first.output.exists? %>
         <th scope="col">Output Link</th>
       <% end %>
     </tr>
@@ -15,7 +15,7 @@
     <tr>
     <td><%= index + 1 %></td>
     <td><%= link_to "Download", download_input_path(test), :class => "btn btn-dark" %></td>
-    <% if @project.testcases.first.output.exists? %>
+    <% if @project.testcases.count>0 && @project.testcases.first.output.exists? %>
      <td><%= link_to "Download", download_output_path(test), :class => "btn btn-dark" %></td></td>
     <% end %>
     </tr>
@@ -26,5 +26,5 @@
 &nbsp;
 <%= link_to @project.code.blank? ? 'Add Code' : 'Edit Code', add_code_path(@project), :class => "btn btn-dark text-center" %>
 &nbsp;
-  <%= link_to @project.testcases.first.output.exists? ? 'Generate Outputs Again' : 'Generate Outputs', generate_output_path(@project), method: :post, :class => "btn btn-dark text-center" %>
+  <%= link_to  @project.testcases.count>0 && @project.testcases.first.output.exists? ? 'Generate Outputs Again' : 'Generate Outputs', generate_output_path(@project), method: :post, :class => "btn btn-dark text-center" %>
 </div>
