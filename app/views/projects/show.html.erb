@@ -1,6 +1,7 @@
 <div class = "container">
 <h2 class="text-center mt-4"><%= @project.name %></h2>
-<table class="table text-center">
+<div class="table-wrapper-scroll-y my-custom-scrollbar">
+<table class="table table-bordered table-striped mb-0 text-center">
   <thead class="thead-light">
     <tr>
       <th scope="col">Testcase Number:</th>
@@ -22,6 +23,7 @@
   <% end %>
   </tbody>
 </table>
+</div>
 <%= link_to 'Download All', download_documents_path(@project), method: :post, :class => "btn btn-dark text-center" %>
 &nbsp;
 <%= link_to @project.code.blank? ? 'Add Code' : 'Edit Code', add_code_path(@project), :class => "btn btn-dark text-center" %>
