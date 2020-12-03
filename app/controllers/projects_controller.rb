@@ -1,10 +1,10 @@
 require 'zip'
 class ProjectsController < ApplicationController
   def show
-  @project = Project.find(params[:id])
+    @project = Project.find(params[:id])
   end
   def index
-  @projects =  current_user.projects
+    @projects =  current_user.projects
   end
   def new
     @project = Project.new
@@ -16,39 +16,37 @@ class ProjectsController < ApplicationController
     if @project.save
         errors = 0
         for i in 1..@project.testcaseCount
-
               inputFileName = "in" + i.to_s + ".txt"
               fileobject = File.new(inputFileName,"w+");
               input = ""
               errors = 0
-            a.each_with_index do |test,index|
-                if test.name.blank?
-                  test.destroy
-                  next
-                end
-                test.project_id = @project.id
-                if !test.valid?
-                  @project.errors[:base] << "In Input Line => " + (index+1).to_s + ": " + "#{test.errors.full_messages.join(". ")}."
-                  errors = 1
-                  break
-                elsif test.name == "int"
-                  input += generate_integer(test.lowlimit, test.highlimit) + " "
-                elsif test.name == "intarray"
-                  input += generate_integer_1d_array(test.rowsize,test.lowlimit,test.highlimit)
-                elsif test.name == "int2darray"
-                  input += generate_integer_2d_array(test.rowsize,test.colsize,test.lowlimit,test.highlimit)
-                elsif test.name == "string"
-                  input += generate_string(test.rowsize,test.rowsize,test.flag) + " "
-                elsif test.name == "stringarray"
-                  input += generate_string_array(test.rowsize,test.lowlimit,test.highlimit,test.flag)
-                end
-                test.save
-                @project.tests << test
-            end
+              a.each_with_index do |test,index|
+                  if test.name.blank?
+                    test.destroy
+                    next
+                  end
+                  test.project_id = @project.id
+                  if !test.valid?
+                    @project.errors[:base] << "In Input Line => " + (index+1).to_s + ": " + "#{test.errors.full_messages.join(". ")}."
+                    errors = 1
+                    break
+                  elsif test.name == "int"
+                    input += generate_integer(test.lowlimit, test.highlimit) + " "
+                  elsif test.name == "intarray"
+                    input += generate_integer_1d_array(test.rowsize,test.lowlimit,test.highlimit)
+                  elsif test.name == "int2darray"
+                    input += generate_integer_2d_array(test.rowsize,test.colsize,test.lowlimit,test.highlimit)
+                  elsif test.name == "string"
+                    input += generate_string(test.rowsize,test.rowsize,test.flag) + " "
+                  elsif test.name == "stringarray"
+                    input += generate_string_array(test.rowsize,test.lowlimit,test.highlimit,test.flag)
+                  end
+                  test.save
+                  @project.tests << test
+              end
             if errors == 1
               break
             end
-
             fileobject.syswrite(input);
             @test = Testcase.new(testfile: fileobject)
             @project.testcases << @test
@@ -63,9 +61,9 @@ class ProjectsController < ApplicationController
           render 'new'
           return
         end
-        flash[:notice] = "Project was created successfully."
-        redirect_to project_path(@project)
-        return
+      flash[:notice] = "Project was created successfully."
+      redirect_to project_path(@project)
+      return
     else
       @project.destroy
       render 'new'
