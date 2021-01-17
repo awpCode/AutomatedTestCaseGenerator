@@ -63,7 +63,7 @@ class ProjectsController < ApplicationController
         end
       flash[:notice] = "Project was created successfully."
       redirect_to project_path(@project)
-      return
+        return
     else
       @project.destroy
       render 'new'
