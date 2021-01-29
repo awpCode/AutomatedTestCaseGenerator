@@ -129,8 +129,8 @@ class ProjectsController < ApplicationController
               "script" => @project.code,
               "language" => "cpp14",
               "versionIndex" => "3",
-              "clientId" => "b4a3fb2dd2327ec7e9189ac3a0fc8c38",
-              "clientSecret" => "f295f87cb2647b7a77ada106ff601a80b1b732aec52c34df2b79202ac55671f0",
+              "clientId" => Rails.application.credentials.jdoodle[:clientId],
+              "clientSecret" => Rails.application.credentials.jdoodle[:clientSecret],
               "stdin" => input}.to_json
               response = http.request(request)
               obj = JSON.parse(response.read_body)
@@ -142,7 +142,7 @@ class ProjectsController < ApplicationController
               testcase.output = fileobject
               testcase.save
         end
-     end
+    end
     render 'show'
   end
     def add_code
